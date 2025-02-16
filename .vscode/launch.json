@@ -30,7 +30,7 @@
                 "test",
                 "--verbose",
                 "--runInBand",
-                "validation.test",
+                "routes-notes.test",
             ],
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen"

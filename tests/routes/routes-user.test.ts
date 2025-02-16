@@ -4,7 +4,7 @@ import request from 'supertest';
 import { iUser } from '../../src/common/interface/entity-user';
 
 let server: Server;
-let id: string | undefined = undefined;
+let _id: string | undefined = undefined;
 let token: string | undefined = undefined;
 
 beforeEach(() => {
@@ -20,10 +20,10 @@ afterEach(() => {
 
 describe('Should test the POST app routes', () => {
   const data: iUser = {
-    userName: 'camilabbreda5',
+    userName: 'camilabbreda9',
     firstName: 'camila',
     lastName: 'Borba Breda',
-    email: 'camilabbreda5@example.com',
+    email: 'camilabbreda9@example.com',
     password: 'password123',
   };
 
@@ -33,11 +33,11 @@ describe('Should test the POST app routes', () => {
       .send(data)
       .expect('Content-Type', /json/)
       .expect(201);
-    id = response.body.response._id;
+    _id = response.body.response._id;
     expect(response.body.response._id).not.toBeNull();
     expect(response.body.response._id).toBeDefined();
     expect(response.body.response.firstName).toBe(
-      data.firstName?.toLowerCase()
+      data.firstName?.toLowerCase(),
     );
     expect(response.body.response.lastName).toBe(data.lastName?.toLowerCase());
     expect(response.body.response.userName).toBe(data.userName?.toLowerCase());
@@ -66,7 +66,7 @@ describe('Should test the PUT app routes', () => {
     ['password', { password: '123@sjsld#' }],
   ])('Sould update column %s', async (key, param) => {
     await request(app)
-      .put(`/user/register/${id}`)
+      .put(`/user/register/${_id}`)
       .set('Authorization', `Bearer ${token}`)
       .send(param)
       .expect(204);
@@ -76,7 +76,7 @@ describe('Should test the PUT app routes', () => {
 describe('Should test the DELETE app routes', () => {
   it('Sould test user delete', async () => {
     const response = await request(app)
-      .delete(`/user/register/${id}`)
+      .delete(`/user/register/${_id}`)
       .set('Authorization', `Bearer ${token}`)
       .expect(200);
     expect(response.body.response).toBe('User was successfully deleted.');

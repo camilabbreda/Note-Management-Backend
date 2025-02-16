@@ -1,18 +1,23 @@
 import mongoose, { Schema } from 'mongoose';
 import { iUser } from '../../common/interface/entity-user';
-import { NoteSchema } from './model-mgdb-note';
 
 const UserSchema = new Schema<iUser>({
-  _id: { type: String, required: true },
   userName: { type: String, required: true },
   firstName: { type: String, required: true },
   email: { type: String, required: true },
   lastName: { type: String, required: true },
   password: { type: String, required: true },
-  notes: { type: [NoteSchema], required: false },
-  createdAt: { type: Date, default: Date.now },
+  notes: { type: [mongoose.Schema.Types.ObjectId], required: false },
 });
 
 UserSchema.set('timestamps', true);
+
+// UserSchema.virtual('_id').get(function() {
+//   return this._id.toString();
+// });
+
+// UserSchema.set('toJSON', {
+//   virtuals: true,
+// });
 
 export default mongoose.model<iUser>('User', UserSchema);

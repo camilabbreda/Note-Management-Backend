@@ -1,7 +1,7 @@
-import {  Document } from 'mongoose';
-export interface iNote extends Document {
+import mongoose from 'mongoose';
+export interface iNote {
+  _id?: mongoose.Types.ObjectId | string;
   title: string;
   content: string;
-  userId: string;
-  createdAt: Date;
+  userId: mongoose.Types.ObjectId | string;
 }

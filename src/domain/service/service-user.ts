@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from 'uuid';
 import { AppException } from '../../common/error/app-exception';
 import { NotFoundException } from '../../common/error/not-found-exception';
 import { iUser } from '../../common/interface/entity-user';
@@ -17,7 +16,6 @@ export default class ServiceUser {
     await userValidation(body, 'POST');
 
     const data: iUser = dataFormatting(body);
-    data._id = uuidv4();
     data.password = await hashPassword(data.password as string);
     const user = await RepositoryUserMgdb.createUser(data);
 
@@ -30,16 +28,17 @@ export default class ServiceUser {
   }
 
   static async deleteUser(_id: string): Promise<string> {
-    if (!_id) new BadRequestException('Please inform user id');
+    if (!_id) new BadRequestException('Please inform user _id.');
     await RepositoryUserMgdb.deleteUser(_id);
     return 'User was successfully deleted.';
   }
 
   static async updateUser(_id: string, body: iUser) {
-    await userValidation(body, 'PUT', _id);
+    body._id = _id;
+    await userValidation(body, 'PUT');
     const data: iUser = dataFormatting(body);
     if (data.password) {
-      data.password = await hashPassword(data.password as string);
+      data.password = await hashPassword(data.password);
     }
     data._id = _id;
     await RepositoryUserMgdb.updateUser(data);

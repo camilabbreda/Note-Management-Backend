@@ -2,7 +2,6 @@ import { iUser } from '../../common/interface/entity-user';
 import User from '../../infrastructure/model/model-mgdb-user';
 
 export default class RepositoryUserMgdb {
-
   static async createUser(body: iUser) {
     const { firstName, email, _id, lastName, password, userName } = body;
     const newUser = new User({
@@ -29,15 +28,11 @@ export default class RepositoryUserMgdb {
   }
 
   static async getUserByUsername(userName: string) {
-    try{
-      const user = await User.findOne({userName});
-      return user as iUser;
-    }catch(error){
-      console.log('');
-    }
+    const user = await User.findOne({ userName });
+    return user as iUser;
   }
   static async getUserByEmail(email: string) {
-    const user = await User.findOne({email});
+    const user = await User.findOne({ email });
     return user as iUser;
   }
 
@@ -47,8 +42,29 @@ export default class RepositoryUserMgdb {
     });
     return updatedUser as iUser;
   }
+
   static async deleteUser(_id: string) {
     const deletedUser = await User.findByIdAndDelete(_id);
     return deletedUser;
+  }
+
+  static async addNoteToUser(userId: string, noteId: string) {
+    return await User.findByIdAndUpdate(
+      userId,
+      { $push: { notes: noteId } },
+      { new: true }
+    );
+  }
+
+  static async removeNoteFromUser(userId: string, noteId: string) {
+    return await User.findByIdAndUpdate(
+      userId,
+      { $pull: { notes: noteId } },
+      { new: true }
+    );
+  }
+
+  static async getUserNotes(userId: string) {
+    return await User.findById(userId).populate('notes');
   }
 }

@@ -7,67 +7,72 @@ import { ReturnError } from '../../common/dtos/return-error.dto';
 export default class ControllerUser {
   static async createUser(
     req: Request,
-    res: Response
+    res: Response,
   ): Promise<ReturnResponse | ReturnError> {
     try {
       const body: iUser = req.body;
-      const response: iUser = await ServiceUser.createUser(body);
+      const response = await ServiceUser.createUser(body);
       return new ReturnResponse(res, 201, 'Success', response);
     } catch (error: any) {
       return new ReturnError(res, error);
     }
   }
+
   static async getAllUsers(
     _: Request,
-    res: Response
+    res: Response,
   ): Promise<ReturnResponse | ReturnError> {
     try {
-      const response: iUser[] = await ServiceUser.getAllUsers();
+      const response = await ServiceUser.getAllUsers();
       return new ReturnResponse(res, 200, 'Success', response);
     } catch (error: any) {
       return new ReturnError(res, error);
     }
   }
+
   static async getUserById(
     req: Request,
-    res: Response
+    res: Response,
   ): Promise<ReturnResponse | ReturnError> {
     try {
-      const { id } = req.params;
-      const response: iUser = await ServiceUser.getUserById(id);
+      const { _id } = req.params;
+      const response = await ServiceUser.getUserById(_id);
       return new ReturnResponse(res, 200, 'Success', response);
     } catch (error: any) {
       return new ReturnError(res, error);
     }
   }
+
   static async deleteUser(
     req: Request,
-    res: Response
+    res: Response,
   ): Promise<ReturnResponse | ReturnError> {
     try {
-      const { id } = req.params;
-      const response = await ServiceUser.deleteUser(id);
+      const { _id } = req.params;
+      const response = await ServiceUser.deleteUser(_id);
       return new ReturnResponse(res, 200, 'Success', response);
     } catch (error: any) {
       return new ReturnError(res, error);
     }
   }
+
   static async updateUser(
     req: Request,
-    res: Response
+    res: Response,
   ): Promise<ReturnResponse | ReturnError> {
     try {
-      const { id } = req.params;
+      const { _id } = req.params;
       const body: iUser = req.body;
-      await ServiceUser.updateUser(id, body);
+      await ServiceUser.updateUser(_id, body);
       return new ReturnResponse(res, 204, 'Success', undefined);
     } catch (error: any) {
       return new ReturnError(res, error);
     }
   }
+
   static async loginUser(
     req: Request,
-    res: Response
+    res: Response,
   ): Promise<ReturnResponse | ReturnError> {
     try {
       const { userName, password } = req.body;
