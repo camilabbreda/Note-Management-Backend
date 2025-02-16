@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
-import { iUser } from '../../interface/entity-pg-user';
+import { iUser } from '../../interface/entity-user';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'default_secret';
 

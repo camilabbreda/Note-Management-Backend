@@ -1,20 +1,20 @@
-import { iUser } from '../../../src/common/interface/entity-pg-user';
+import { iUser } from '../../../src/common/interface/entity-user';
 import dataFormatting from '../../../src/common/util/function/data-formatting';
 
 describe('dataFormatting', () => {
-  it('should format the username, firstname, lastname, and email to lowercase', () => {
+  it('should format the userName, firstName, lastName, and email to lowercase', () => {
     const input: iUser = {
-      username: 'User123',
-      firstname: 'John',
-      lastname: 'Doe',
+      userName: 'User123',
+      firstName: 'John',
+      lastName: 'Doe',
       email: 'TEST@EMAIL.COM',
       password: 'securePassword123',
     };
 
     const expectedOutput: iUser = {
-      username: 'user123',
-      firstname: 'john',
-      lastname: 'doe',
+      userName: 'user123',
+      firstName: 'john',
+      lastName: 'doe',
       email: 'test@email.com',
       password: 'securePassword123',
     };
@@ -26,17 +26,17 @@ describe('dataFormatting', () => {
 
   it('should handle undefined values', () => {
     const input: iUser = {
-      username: undefined,
-      firstname: undefined,
-      lastname: undefined,
+      userName: undefined,
+      firstName: undefined,
+      lastName: undefined,
       email: undefined,
       password: 'securePassword123',
     };
 
     const expectedOutput: iUser = {
-      username: undefined,
-      firstname: undefined,
-      lastname: undefined,
+      userName: undefined,
+      firstName: undefined,
+      lastName: undefined,
       email: undefined,
       password: 'securePassword123',
     };

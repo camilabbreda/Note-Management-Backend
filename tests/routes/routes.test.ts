@@ -1,7 +1,7 @@
 import app from '../../src/server';
 import { Server } from 'http';
 import request from 'supertest';
-import { iUser } from '../../src/common/interface/entity-pg-user';
+import { iUser } from '../../src/common/interface/entity-user';
 
 let server: Server;
 let id: string | undefined = undefined;
@@ -20,33 +20,33 @@ afterEach(() => {
 
 describe('Should test the POST app routes', () => {
   const data: iUser = {
-    username: 'julianadasilvajohness',
-    firstname: 'Juliana',
-    lastname: 'silva Johness',
-    email: 'julianadasilvajohness@example.com',
+    userName: 'camilabbreda5',
+    firstName: 'camila',
+    lastName: 'Borba Breda',
+    email: 'camilabbreda5@example.com',
     password: 'password123',
   };
 
   it('Sould test user register', async () => {
     const response = await request(app)
-      .post('/register')
+      .post('/user/register')
       .send(data)
       .expect('Content-Type', /json/)
       .expect(201);
-    id = response.body.response.id;
-    expect(response.body.response.id).not.toBeNull();
-    expect(response.body.response.id).toBeDefined();
-    expect(response.body.response.firstname).toBe(
-      data.firstname?.toLowerCase()
+    id = response.body.response._id;
+    expect(response.body.response._id).not.toBeNull();
+    expect(response.body.response._id).toBeDefined();
+    expect(response.body.response.firstName).toBe(
+      data.firstName?.toLowerCase()
     );
-    expect(response.body.response.lastname).toBe(data.lastname?.toLowerCase());
-    expect(response.body.response.username).toBe(data.username?.toLowerCase());
+    expect(response.body.response.lastName).toBe(data.lastName?.toLowerCase());
+    expect(response.body.response.userName).toBe(data.userName?.toLowerCase());
     expect(response.body.response.email).toBe(data.email?.toLowerCase());
   });
-  
+
   it('Sould test user login', async () => {
     const response = await request(app)
-      .post('/login')
+      .post('/user/login')
       .send(data)
       .expect('Content-Type', /json/)
       .expect(200);
@@ -59,14 +59,14 @@ describe('Should test the POST app routes', () => {
 
 describe('Should test the PUT app routes', () => {
   it.each([
-    ['username', { username: 'josepaulofontes' }],
-    ['firstname', { firstname: 'jose paulo' }],
-    ['lasttname', { lastname: 'fontes' }],
+    ['userName', { userName: 'josepaulofontes' }],
+    ['firstName', { firstName: 'jose paulo' }],
+    ['lasttname', { lastName: 'fontes' }],
     ['email', { email: 'jose.paulo@gmail.com' }],
     ['password', { password: '123@sjsld#' }],
   ])('Sould update column %s', async (key, param) => {
     await request(app)
-      .put(`/register/${id}`)
+      .put(`/user/register/${id}`)
       .set('Authorization', `Bearer ${token}`)
       .send(param)
       .expect(204);
@@ -76,7 +76,7 @@ describe('Should test the PUT app routes', () => {
 describe('Should test the DELETE app routes', () => {
   it('Sould test user delete', async () => {
     const response = await request(app)
-      .delete(`/register/${id}`)
+      .delete(`/user/register/${id}`)
       .set('Authorization', `Bearer ${token}`)
       .expect(200);
     expect(response.body.response).toBe('User was successfully deleted.');
