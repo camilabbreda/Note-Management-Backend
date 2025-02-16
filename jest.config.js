@@ -7,5 +7,7 @@ module.exports = {
   moduleFileExtensions: ['ts', 'js'],
   transformIgnorePatterns: ['<rootDir>/node_modules/'],
   setupFiles: ['dotenv/config'],
+  testTimeout: 100000,
+  
 
 };

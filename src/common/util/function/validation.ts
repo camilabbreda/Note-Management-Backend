@@ -1,57 +1,59 @@
-import RepositoryPG from '../../../domain/repository/repository-pg-user';
+import RepositoryUserMgdb from '../../../domain/repository/repository-mgdb-user';
 import { BadRequestException } from '../../error/bad-request-esception';
-import { iUser } from '../../interface/entity-pg-user';
+import { iNote } from '../../interface/entity-note';
+import { iUser } from '../../interface/entity-user';
 
-export default async function validation(body: iUser, method: 'PUT' | 'POST', id?:string) {
+export default async function userValidation(
+  body: iUser,
+  method: 'PUT' | 'POST',
+) {
   switch (method) {
-  case 'POST':
-    if (
-      !body.username ||
-        !body.firstname ||
-        !body.lastname ||
+    case 'POST':
+      if (
+        !body.userName ||
+        !body.firstName ||
+        !body.lastName ||
         !body.email ||
         !body.password
-    ) {
-      throw new BadRequestException(
-        'Please, inform all data from user (username, firstname, lastname, email, password )'
-      );
-    }
-    break;
-  case 'PUT':
-    if (
-      !Object.keys(body).length ||
-        (!body.username &&
-          !body.firstname &&
-          !body.lastname &&
+      ) {
+        throw new BadRequestException(
+          'Please, inform all data from user (userName, firstName, lastName, email, password )',
+        );
+      }
+      break;
+    case 'PUT':
+      if (
+        !Object.keys(body).length ||
+        (!body.userName &&
+          !body.firstName &&
+          !body.lastName &&
           !body.email &&
           !body.password)
-    ) {
-      throw new BadRequestException(
-        'Please, inform at least one data from user (username, firstname, lastname, email, password).'
-      );
-    }
-    if(!id){
-      throw new BadRequestException(
-        'Please, inform the user id.'
-      );
-    }
-    break;
-  default:
-    throw new BadRequestException('Unknown method');
+      ) {
+        throw new BadRequestException(
+          'Please, inform at least one data from user (userName, firstName, lastName, email, password).',
+        );
+      }
+      if (!body._id) {
+        throw new BadRequestException('Please, inform the user _id.');
+      }
+      break;
+    default:
+      throw new BadRequestException('Unknown method');
   }
-  if (body.username) {
-    const isValidUsername = usernameValidation(body.username);
-    if (!isValidUsername) {
+  if (body.userName) {
+    const isValidUserName = usernameValidation(body.userName);
+    if (!isValidUserName) {
       throw new BadRequestException(
-        'Please, username should not have any blank spaces or camelcase.'
+        'Please, userName should not have any blank spaces or camelcase.',
       );
     }
-    const isRegisteredUsername = await RepositoryPG.getUserByUsername(
-      body.username
+    const isRegisteredUsername = await RepositoryUserMgdb.getUserByUsername(
+      body.userName,
     );
-    if (isRegisteredUsername) {
+    if (isRegisteredUsername && isRegisteredUsername._id !== body._id) {
       throw new BadRequestException(
-        `Sorry, the username ${body.username} is already registered.`
+        `Sorry, the userName ${body.userName} is already registered.`,
       );
     }
   }
@@ -59,30 +61,42 @@ export default async function validation(body: iUser, method: 'PUT' | 'POST', id
     const isEmailValid = emailValidation(body.email.toLocaleLowerCase());
     if (!isEmailValid) {
       throw new BadRequestException(
-        `Sorry, the email ${body.email} is not valid.`
+        `Sorry, the email ${body.email} is not valid.`,
       );
     }
-    const isRegisteredEmail = await RepositoryPG.getUserByEmail(body.email);
-    if (isRegisteredEmail) {
+    const isRegisteredEmail = await RepositoryUserMgdb.getUserByEmail(
+      body.email,
+    );
+    if (isRegisteredEmail && isRegisteredEmail._id !== body._id) {
       throw new BadRequestException(
-        `Sorry, the email ${body.email} is already registered.`
+        `Sorry, the email ${body.email} is already registered.`,
       );
     }
   }
 }
 
-export function isJsonValid(jsonstring: string): boolean {
-  try {
-    JSON.parse(jsonstring);
-    return true;
-  } catch (error) {
-    return false;
+export function noteValidation(note: iNote, method: 'PUT' | 'POST') {
+  if (!note.title) {
+    throw new BadRequestException('Please, inform a title for the note');
+  }
+  if (!note.content) {
+    throw new BadRequestException('Please, inform a content for the note');
+  }
+  if (method === 'PUT') {
+    if (!note._id) {
+      throw new BadRequestException('Please, inform the note _id');
+    }
+  }
+  if (method === 'POST') {
+    if (!note.userId) {
+      throw new BadRequestException('Please, inform the userId');
+    }
   }
 }
 
-export function usernameValidation(username: string): boolean {
-  const includesSpace = username.includes(' ');
-  const includesCamelCase = /[A-Z]/.test(username);
+export function usernameValidation(userName: string): boolean {
+  const includesSpace = userName.includes(' ');
+  const includesCamelCase = /[A-Z]/.test(userName);
   if (includesSpace || includesCamelCase) {
     return false;
   }

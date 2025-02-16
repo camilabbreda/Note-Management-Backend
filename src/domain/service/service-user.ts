@@ -1,24 +1,23 @@
-import { v4 as uuidv4 } from 'uuid';
-import RepositoryPG from '../repository/repository-pg-user';
 import { AppException } from '../../common/error/app-exception';
 import { NotFoundException } from '../../common/error/not-found-exception';
-import { iUser } from '../../common/interface/entity-pg-user';
+import { iUser } from '../../common/interface/entity-user';
 import {
   comparePassword,
   generateToken,
   hashPassword,
 } from '../../common/util/auth/auth';
-import validation from '../../common/util/function/validation';
 import dataFormatting from '../../common/util/function/data-formatting';
+import userValidation from '../../common/util/function/validation';
+import RepositoryUserMgdb from '../repository/repository-mgdb-user';
+import { BadRequestException } from '../../common/error/bad-request-esception';
 
-export default class ServicePG {
+export default class ServiceUser {
   static async createUser(body: iUser): Promise<iUser> {
-    await validation(body, 'POST');
+    await userValidation(body, 'POST');
 
     const data: iUser = dataFormatting(body);
-    data.id = uuidv4();
     data.password = await hashPassword(data.password as string);
-    const user = await RepositoryPG.createUser(data);
+    const user = await RepositoryUserMgdb.createUser(data);
 
     if (!user) {
       throw new AppException('Error occured during user register.', 500);
@@ -28,39 +27,41 @@ export default class ServicePG {
     return user;
   }
 
-  static async deleteUser(id: string): Promise<string> {
-    await RepositoryPG.deleteUser(id);
+  static async deleteUser(_id: string): Promise<string> {
+    if (!_id) new BadRequestException('Please inform user _id.');
+    await RepositoryUserMgdb.deleteUser(_id);
     return 'User was successfully deleted.';
   }
 
-  static async updateUser(id: string, body: iUser) {
-    await validation(body, 'PUT', id);
+  static async updateUser(_id: string, body: iUser) {
+    body._id = _id;
+    await userValidation(body, 'PUT');
     const data: iUser = dataFormatting(body);
     if (data.password) {
-      data.password = Buffer.from(`${data.password}`, 'utf8').toString(
-        'base64'
-      );
+      data.password = await hashPassword(data.password);
     }
-    await RepositoryPG.updateUser(id, data);
+    data._id = _id;
+    await RepositoryUserMgdb.updateUser(data);
     return 'User was successfully updated.';
   }
+
   static async getAllUsers() {
-    const response = await RepositoryPG.getAllUsers();
+    const response = await RepositoryUserMgdb.getAllUsers();
     if (!response || response.length === 0) {
       new NotFoundException('There is no user registered yet.');
     }
     return response;
   }
-  static async getUserById(id: string) {
-    const response = await RepositoryPG.getUserById({ id });
+  static async getUserById(_id: string) {
+    const response = await RepositoryUserMgdb.getUserById(_id);
     if (!response) {
       new NotFoundException('User not found.');
     }
     return response;
   }
 
-  static async loginUser(username: string, password: string) {
-    const user = await RepositoryPG.getUserByUsername(username);
+  static async loginUser(userName: string, password: string) {
+    const user = await RepositoryUserMgdb.getUserByUsername(userName);
     if (!user) {
       throw new NotFoundException('User not found');
     }

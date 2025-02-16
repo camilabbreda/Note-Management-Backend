@@ -1,32 +1,31 @@
 module.exports = {
-  'env': {
-    'commonjs': true,
-    'browser': true,
-    'es2021': true,
-    'node': true,
+  env: {
+    commonjs: true,
+    browser: true,
+    es2021: true,
+    node: true,
   },
-  'extends': [
+  extends: [
     'eslint:recommended',
-    'plugin:@typescript-eslint/recommended'
+    'plugin:@typescript-eslint/recommended',
+    
+    'prettier',
   ],
-  'overrides': [{
-    'env': {'node': true},
-    'files': ['.eslintrc.{js,cjs}'],
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+    project: './tsconfig.json',
   },
-  ],
-  'parser': '@typescript-eslint/parser',
-  'parserOptions': {
-    'ecmaVersion': 'latest',
-    'sourceType': 'module'
-  },
-  'plugins': [
-    '@typescript-eslint'
-  ],
-  'rules': {
+  plugins: ['@typescript-eslint'],
+  rules: {
     semi: ['warn', 'always'],
     quotes: ['error', 'single'],
-    indent: ['error', 2],
-    '@typescript-eslint/no-explicit-any': 'off'
-    
-  }
+    indent: 'off',
+    '@typescript-eslint/indent': 'off',
+    'react/jsx-indent': 'off',
+    'react/jsx-indent-props': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
+
+  },
 };
