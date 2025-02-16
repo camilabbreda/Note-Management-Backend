@@ -1,24 +1,11 @@
-import app from '../../src/server';
-import { Server } from 'http';
+import app from '../setupTest/setupTest';
 import request from 'supertest';
 import { iUser } from '../../src/common/interface/entity-user';
 import { iNote } from '../../src/common/interface/entity-note';
 
-let server: Server;
 let userId: string | undefined = '67b25223eb90182c6cfd46d7';
 let noteId: string | undefined = undefined;
 let token: string | undefined = undefined;
-
-beforeEach(() => {
-  const port = 3000;
-  server = app.listen(port);
-});
-
-afterEach(() => {
-  if (server) {
-    server.close();
-  }
-});
 
 describe('Should test the Note routes', () => {
   const userData: iUser = {
