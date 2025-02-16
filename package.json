@@ -7,7 +7,7 @@
     "dev": "nodemon --exec ts-node src/server.ts",
     "lint": "eslint ./ --ext  ts",
     "fix": "eslint . --fix",
-    "build": "sucrase ./src -d ./dist --transforms typescript, imports",
+    "build": "sucrase ./src -d ./dist --transforms typescript",
     "test": "jest --verbose"
   },
   "keywords": [],
@@ -19,9 +19,7 @@
     "@types/jest": "^29.5.12",
     "@types/jsonwebtoken": "^9.0.8",
     "@types/node": "^20.11.16",
-    "@types/pg": "^8.11.1",
     "@types/supertest": "^6.0.2",
-    "@types/uuid": "^9.0.8",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
     "dotenv": "^16.4.7",
@@ -46,8 +44,6 @@
     "bcryptjs": "^3.0.0",
     "express": "^5.0.0",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.10.1",
-    "pg": "^8.11.3",
-    "uuid": "^9.0.1"
+    "mongoose": "^8.10.1"
   }
 }

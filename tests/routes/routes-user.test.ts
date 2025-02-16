@@ -1,29 +1,16 @@
-import app from '../../src/server';
-import { Server } from 'http';
+import app from '../setupTest/setupTest';
 import request from 'supertest';
 import { iUser } from '../../src/common/interface/entity-user';
 
-let server: Server;
 let _id: string | undefined = undefined;
 let token: string | undefined = undefined;
 
-beforeEach(() => {
-  const port = 3000;
-  server = app.listen(port);
-});
-
-afterEach(() => {
-  if (server) {
-    server.close();
-  }
-});
-
 describe('Should test the POST app routes', () => {
   const data: iUser = {
-    userName: 'camilabbreda9',
+    userName: 'camilabbreda10',
     firstName: 'camila',
     lastName: 'Borba Breda',
-    email: 'camilabbreda9@example.com',
+    email: 'camilabbreda10@example.com',
     password: 'password123',
   };
 

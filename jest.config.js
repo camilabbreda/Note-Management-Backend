@@ -8,6 +8,5 @@ module.exports = {
   transformIgnorePatterns: ['<rootDir>/node_modules/'],
   setupFiles: ['dotenv/config'],
   testTimeout: 100000,
-  
-
+  setupFilesAfterEnv: ['./tests/setupTest/setupTest.ts'],
 };
