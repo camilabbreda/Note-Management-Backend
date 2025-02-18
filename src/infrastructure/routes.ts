@@ -9,8 +9,8 @@ router.get('/user', ControllerUser.getAllUsers);
 router.get('/user/:_id', ControllerUser.getUserById);
 router.post('/user/register', ControllerUser.createUser);
 router.post('/user/login', ControllerUser.loginUser);
-router.put('/user/register/:_id', authMiddleware, ControllerUser.updateUser);
-router.delete('/user/register/:_id', authMiddleware, ControllerUser.deleteUser);
+router.put('/user/:_id', authMiddleware, ControllerUser.updateUser);
+router.delete('/user/:_id', authMiddleware, ControllerUser.deleteUser);
 
 router.get(
   '/note/user/:userId',
