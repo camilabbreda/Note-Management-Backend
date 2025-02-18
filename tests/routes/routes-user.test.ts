@@ -7,7 +7,6 @@ let token: string | undefined = undefined;
 
 describe('Should test the POST app routes', () => {
   const data: iUser = {
-    userName: 'camilabbreda10',
     firstName: 'camila',
     lastName: 'Borba Breda',
     email: 'camilabbreda10@example.com',
@@ -27,7 +26,6 @@ describe('Should test the POST app routes', () => {
       data.firstName?.toLowerCase(),
     );
     expect(response.body.response.lastName).toBe(data.lastName?.toLowerCase());
-    expect(response.body.response.userName).toBe(data.userName?.toLowerCase());
     expect(response.body.response.email).toBe(data.email?.toLowerCase());
   });
 
@@ -46,7 +44,6 @@ describe('Should test the POST app routes', () => {
 
 describe('Should test the PUT app routes', () => {
   it.each([
-    ['userName', { userName: 'josepaulofontes' }],
     ['firstName', { firstName: 'jose paulo' }],
     ['lasttname', { lastName: 'fontes' }],
     ['email', { email: 'jose.paulo@gmail.com' }],

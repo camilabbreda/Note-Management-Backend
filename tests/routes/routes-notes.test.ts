@@ -9,7 +9,6 @@ let token: string | undefined = undefined;
 
 describe('Should test the Note routes', () => {
   const userData: iUser = {
-    userName: 'camilabbreda9',
     firstName: 'camila',
     lastName: 'Borba Breda',
     email: 'camilabbreda9@example.com',
