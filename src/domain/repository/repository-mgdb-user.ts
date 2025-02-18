@@ -3,14 +3,13 @@ import User from '../../infrastructure/model/model-mgdb-user';
 
 export default class RepositoryUserMgdb {
   static async createUser(body: iUser) {
-    const { firstName, email, _id, lastName, password, userName } = body;
+    const { firstName, email, _id, lastName, password } = body;
     const newUser = new User({
       firstName,
       email,
       _id,
       lastName,
       password,
-      userName,
     });
 
     await newUser.save();
@@ -27,10 +26,7 @@ export default class RepositoryUserMgdb {
     return user as iUser;
   }
 
-  static async getUserByUsername(userName: string) {
-    const user = await User.findOne({ userName });
-    return user as iUser;
-  }
+
   static async getUserByEmail(email: string) {
     const user = await User.findOne({ email });
     return user as iUser;

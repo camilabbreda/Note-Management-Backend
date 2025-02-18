@@ -10,28 +10,27 @@ export default async function userValidation(
   switch (method) {
     case 'POST':
       if (
-        !body.userName ||
         !body.firstName ||
         !body.lastName ||
         !body.email ||
         !body.password
       ) {
         throw new BadRequestException(
-          'Please, inform all data from user (userName, firstName, lastName, email, password )',
+          'Please, inform all data from user (firstName, lastName, email, password )',
         );
       }
       break;
     case 'PUT':
       if (
         !Object.keys(body).length ||
-        (!body.userName &&
+        (
           !body.firstName &&
           !body.lastName &&
           !body.email &&
           !body.password)
       ) {
         throw new BadRequestException(
-          'Please, inform at least one data from user (userName, firstName, lastName, email, password).',
+          'Please, inform at least one data from user (firstName, lastName, email, password).',
         );
       }
       if (!body._id) {
@@ -41,22 +40,7 @@ export default async function userValidation(
     default:
       throw new BadRequestException('Unknown method');
   }
-  if (body.userName) {
-    const isValidUserName = usernameValidation(body.userName);
-    if (!isValidUserName) {
-      throw new BadRequestException(
-        'Please, userName should not have any blank spaces or camelcase.',
-      );
-    }
-    const isRegisteredUsername = await RepositoryUserMgdb.getUserByUsername(
-      body.userName,
-    );
-    if (isRegisteredUsername && isRegisteredUsername._id !== body._id) {
-      throw new BadRequestException(
-        `Sorry, the userName ${body.userName} is already registered.`,
-      );
-    }
-  }
+  
   if (body.email) {
     const isEmailValid = emailValidation(body.email.toLocaleLowerCase());
     if (!isEmailValid) {
@@ -92,16 +76,6 @@ export function noteValidation(note: iNote, method: 'PUT' | 'POST') {
       throw new BadRequestException('Please, inform the userId');
     }
   }
-}
-
-export function usernameValidation(userName: string): boolean {
-  const includesSpace = userName.includes(' ');
-  const includesCamelCase = /[A-Z]/.test(userName);
-  if (includesSpace || includesCamelCase) {
-    return false;
-  }
-
-  return true;
 }
 
 export function emailValidation(email: string): boolean {

@@ -75,8 +75,8 @@ export default class ControllerUser {
     res: Response,
   ): Promise<ReturnResponse | ReturnError> {
     try {
-      const { userName, password } = req.body;
-      const response = await ServiceUser.loginUser(userName, password);
+      const { email, password } = req.body;
+      const response = await ServiceUser.loginUser(email, password);
       return new ReturnResponse(res, 200, 'Success', response);
     } catch (error: any) {
       return new ReturnError(res, error);

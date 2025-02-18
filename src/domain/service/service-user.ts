@@ -60,8 +60,8 @@ export default class ServiceUser {
     return response;
   }
 
-  static async loginUser(userName: string, password: string) {
-    const user = await RepositoryUserMgdb.getUserByUsername(userName);
+  static async loginUser(email: string, password: string) {
+    const user = await RepositoryUserMgdb.getUserByEmail(email);
     if (!user) {
       throw new NotFoundException('User not found');
     }
