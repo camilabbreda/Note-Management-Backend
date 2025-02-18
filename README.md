@@ -105,14 +105,14 @@ npm test
 
 ### User Routes
 
-| Method | Endpoint       | Description         |
-| ------ | -------------- | ------------------- |
-| POST   | /user/register | Register a new user |
-| POST   | /user/login    | Login a user        |
-| GET    | /user          | Get all users       |
-| GET    | /user/{userId} | Get user by ID      |
-| PUT    | /user/{userId} | Update user details |
-| DELETE | /user/{userId} | Delete a user       |
+| Method | Endpoint                | Description         |
+| ------ | ----------------------- | ------------------- |
+| POST   | /user/register          | Register a new user |
+| POST   | /user/login             | Login a user        |
+| GET    | /user                   | Get all users       |
+| GET    | /user/{userId}          | Get user by ID      |
+| PUT    | /user/register/{userId} | Update user details |
+| DELETE | /user/register/{userId} | Delete a user       |
 
 ### Note Routes
 

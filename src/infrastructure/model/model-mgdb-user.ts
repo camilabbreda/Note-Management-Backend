@@ -2,7 +2,6 @@ import mongoose, { Schema } from 'mongoose';
 import { iUser } from '../../common/interface/entity-user';
 
 const UserSchema = new Schema<iUser>({
-  userName: { type: String, required: true },
   firstName: { type: String, required: true },
   email: { type: String, required: true },
   lastName: { type: String, required: true },
