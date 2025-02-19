@@ -67,7 +67,7 @@ Make sure you have the following installed:
     ollama pull smollm2:135m
     ```
 
-3. Start Ollama server on the desired port
+3. Check if Ollama server is running, if not, then start it:
     ```sh
     ollama serve
     ```
@@ -101,7 +101,7 @@ npm install
 
 Create a .env file in the root directory and add the following variables:
 
-PORT_SERVER=4000 (Optional)\
+PORT_SERVER=4000 #(Optional)\
 JWT_SECRET=JWT_SECRET_KEY\
 MONGO_URI=mongodb://localhost:27017/note-app\
 OLLAMA_HOST = 'http://127.0.0.1:11434'\
@@ -138,7 +138,7 @@ npm test
 
 | Method | Endpoint                | Description         |
 | ------ | ----------------------- | ------------------- |
-| GET   | /health                  | Healthcheck          |
+| GET    | /health                  | Healthcheck         |
 
 ### User Routes
 
