@@ -6,7 +6,6 @@ This is a **Note Management API** backend built using **Node.js, Express, and Mo
 >
 > https://github.com/camilabbreda/Note-Management-Frontend
 
-
 # Table of Contents
 
 - [Note Management Backend](#note-management-backend)
@@ -30,14 +29,14 @@ This is a **Note Management API** backend built using **Node.js, Express, and Mo
   - [LLM Generate Routes](#llm-generate-routes)
 - [📝 License](#-license)
 
-
 ## 📌 Features
-- ✨ **AI Notes Title Suggestions** ✨To enhance the functionality of Note Management APP, we have integrated an AI language model using Ollama to suggest titles for user notes based on the note content.
+
+- ✨ **AI Notes Title Suggestions** ✨To enhance the functionality of Note Management APP, we have integrated an AI language model using Ollama to suggest titles for user notes based on the note content. [experimental]
 
 - 🔑 **User authentication** - Register, Login, JWT-based authentication
 - 🔍 **CRUD operations for users and users notes** Create, Read, Update, Delete
 - 🛠️ **Tests** using Jest & Supertest
--  🌍 **Scalable architecture**
+- 🌍 **Scalable architecture**
 
 ## 🏗 Project Structure
 
@@ -66,7 +65,6 @@ This is a **Note Management API** backend built using **Node.js, Express, and Mo
 📂tests/                  # Unit and integration tests
 ├── routes/               # Tests for API routes and endpoints
 ├── setupTest/            # Test environment setup
-└── utils/                # Utility function tests
 ```
 
 ## 🚀 Getting Started
@@ -84,25 +82,25 @@ Make sure you have the following installed:
 ### Pre Installation
 
 #### Ollama
-1. Download and Install [Ollama](https://ollama.com/)
-2. Pull a lightweight model: 
-    `smollm2:135m` with 270Mb for example
 
-    ```sh
-    ollama pull smollm2:135m
-    ```
+1. Download and Install [Ollama](https://ollama.com/)
+2. Pull a lightweight model:
+   `smollm2:latest` with 270Mb for example
+
+   ```sh
+   ollama pull smollm2:latest
+   ```
 
 3. Check if Ollama server is running, if not, then start it:
-    ```sh
-    ollama serve
-    ```
+
+   ```sh
+   ollama serve
+   ```
 
 4. Add the envs to the `.env`
 
-    OLLAMA_HOST = 'http://127.0.0.1:11434' \
-    LLM_MODEL_NAME = 'smollm2:135m'
-
-
+   OLLAMA_HOST = 'http://127.0.0.1:11434' \
+   LLM_MODEL_NAME = 'smollm2:latest'
 
 ### Installation
 
@@ -126,12 +124,13 @@ npm install
 
 Create a .env file in the root directory and add the following variables:
 
+```env
 PORT_SERVER=4000 #(Optional)\
 JWT_SECRET=JWT_SECRET_KEY\
 MONGO_URI=mongodb://localhost:27017/note-app\
 OLLAMA_HOST = 'http://127.0.0.1:11434' \
-LLM_MODEL_NAME = 'smollm2'
-
+LLM_MODEL_NAME = 'smollm2:latest'
+```
 
 ## 🔥 Running the Application
 
@@ -161,9 +160,9 @@ npm test
 
 ## 📜 API Endpoints
 
-| Method | Endpoint                | Description         |
-| ------ | ----------------------- | ------------------- |
-| GET    | /health                  | Healthcheck         |
+| Method | Endpoint | Description |
+| ------ | -------- | ----------- |
+| GET    | /health  | Healthcheck |
 
 ### User Routes
 
@@ -189,19 +188,15 @@ npm test
 
 ### LLM Generate Routes
 
-| Method | Endpoint            | Description          |
-| ------ | ------------------- | -------------------- |
-| POST   | /generate/note-title| Generate a note title suggestion |
-
+| Method | Endpoint             | Description                      |
+| ------ | -------------------- | -------------------------------- |
+| POST   | /generate/note-title | Generate a note title suggestion |
 
 > **Tip**
-> Refer to the unit tests to see endpoints details.
+> Refer to the tests to see endpoints details.
 
+ENJOY THE APP!
 
 ## 📝 License
 
 This project is licensed under the **MIT License**.
-
----
-
-💡 **Contributions are welcome!** Feel free to fork the repository and submit pull requests. 🚀
