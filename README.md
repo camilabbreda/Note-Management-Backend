@@ -1,13 +1,18 @@
 # Note Management Backend
 
-This is a **Note Management API** built using **Node.js, Express, and MongoDB** with **TypeScript**. The project follows best practices for **scalability**, includes **tests**, uses **REST** and **JWT authentication**.
+This is a **Note Management API** backend built using **Node.js, Express, and MongoDB** with **TypeScript**. The project follows best practices for **scalability**, includes **tests**, uses **REST**, **JWT authentication** and **LLM Models Integration**.
+
+> **💻 This project has a front-end 💻**
+>
+> https://github.com/camilabbreda/Note-Management-Frontend
 
 ## 📌 Features
+- ✨ **AI Notes Title Suggestions** ✨To enhance the functionality of Note Management APP, we have integrated an AI language model using Ollama to suggest titles for user notes based on the note content.
 
-- **User authentication** (Register, Login, JWT-based authentication)
-- **CRUD operations for users and users notes** (Create, Read, Update, Delete)
-- **Tests** using Jest & Supertest
-- **Scalable architecture**
+- 🔑 **User authentication** - Register, Login, JWT-based authentication
+- 🔍 **CRUD operations for users and users notes** Create, Read, Update, Delete
+- 🛠️ **Tests** using Jest & Supertest
+-  🌍 **Scalable architecture**
 
 ## 🏗 Project Structure
 
@@ -37,7 +42,6 @@ This is a **Note Management API** built using **Node.js, Express, and MongoDB** 
 ├── routes/               # Tests for API routes and endpoints
 ├── setupTest/            # Test environment setup
 └── utils/                # Utility function tests
-
 ```
 
 ## 🚀 Getting Started
@@ -46,8 +50,34 @@ This is a **Note Management API** built using **Node.js, Express, and MongoDB** 
 
 Make sure you have the following installed:
 
-[Node.js](https://nodejs.org/) (v22+ recommended)\
-[MongoDB](https://www.mongodb.com/) (Running locally or using a cloud database like MongoDB Atlas)
+[Node.js](https://nodejs.org/) (v22+ recommended)
+
+[MongoDB](https://www.mongodb.com/) - Running locally or using a cloud database like MongoDB Atlas
+
+[Ollama](https://ollama.com/) - Best to use lightweight and fast LLMs.
+
+### Pre Installation
+
+#### Ollama
+1. Download and Install [Ollama](https://ollama.com/)
+2. Pull a lightweight model: 
+    `smollm2:135m` with 270Mb for example
+
+    ```sh
+    ollama pull smollm2:135m
+    ```
+
+3. Start Ollama server on the desired port
+    ```sh
+    ollama serve
+    ```
+
+4. Add the envs to the `.env`
+
+    OLLAMA_HOST = 'http://127.0.0.1:11434'\
+    LLM_MODEL_NAME = 'smollm2:135m'
+
+
 
 ### Installation
 
@@ -73,7 +103,10 @@ Create a .env file in the root directory and add the following variables:
 
 PORT_SERVER=4000 (Optional)\
 JWT_SECRET=JWT_SECRET_KEY\
-MONGO_URI=mongodb://localhost:27017/note-app
+MONGO_URI=mongodb://localhost:27017/note-app\
+OLLAMA_HOST = 'http://127.0.0.1:11434'\
+LLM_MODEL_NAME = 'smollm2'
+
 
 ## 🔥 Running the Application
 
@@ -103,6 +136,10 @@ npm test
 
 ## 📜 API Endpoints
 
+| Method | Endpoint                | Description         |
+| ------ | ----------------------- | ------------------- |
+| GET   | /health                  | Healthcheck          |
+
 ### User Routes
 
 | Method | Endpoint                | Description         |
@@ -124,6 +161,17 @@ npm test
 | POST   | /note               | Create a new note    |
 | PUT    | /note/{noteId}      | Update a note        |
 | DELETE | /note/{noteId}      | Delete a note        |
+
+### LLM Generate Routes
+
+| Method | Endpoint            | Description          |
+| ------ | ------------------- | -------------------- |
+| POST   | /generate/note-title| Generate a note title suggestion |
+
+
+> **Tip**
+> Refer to the unit tests to see endpoints details.
+
 
 ## 📝 License
 

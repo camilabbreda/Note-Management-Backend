@@ -50,7 +50,7 @@ describe('Should test the PUT app routes', () => {
     ['password', { password: '123@sjsld#' }],
   ])('Sould update column %s', async (key, param) => {
     await request(app)
-      .put(`/user/register/${_id}`)
+      .put(`/user/${_id}`)
       .set('Authorization', `Bearer ${token}`)
       .send(param)
       .expect(204);
@@ -60,7 +60,7 @@ describe('Should test the PUT app routes', () => {
 describe('Should test the DELETE app routes', () => {
   it('Sould test user delete', async () => {
     const response = await request(app)
-      .delete(`/user/register/${_id}`)
+      .delete(`/user/${_id}`)
       .set('Authorization', `Bearer ${token}`)
       .expect(200);
     expect(response.body.response).toBe('User was successfully deleted.');

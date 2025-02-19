@@ -91,9 +91,12 @@ describe('Should test the Note routes', () => {
       .put(`/note/${noteId}`)
       .set('Authorization', `Bearer ${token}`)
       .send(updatedNote)
-      .expect(204);
+      .expect(200);
 
-    const response = await request(app).get(`/user/${userId}`).expect(200);
+    const response = await request(app)
+      .get(`/user/${userId}`)
+      .set('Authorization', `Bearer ${token}`)
+      .expect(200);
     expect(response.body.response.notes).toContain(noteId);
   });
 
@@ -107,7 +110,7 @@ describe('Should test the Note routes', () => {
   });
   it('Sould test user delete', async () => {
     const response = await request(app)
-      .delete(`/user/register/${userId}`)
+      .delete(`/user/${userId}`)
       .set('Authorization', `Bearer ${token}`)
       .expect(200);
     expect(response.body.response).toBe('User was successfully deleted.');
