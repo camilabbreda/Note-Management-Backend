@@ -6,6 +6,31 @@ This is a **Note Management API** backend built using **Node.js, Express, and Mo
 >
 > https://github.com/camilabbreda/Note-Management-Frontend
 
+
+# Table of Contents
+
+- [Note Management Backend](#note-management-backend)
+- [📌 Features](#-features)
+- [🏗 Project Structure](#-project-structure)
+- [🚀 Getting Started](#-getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Pre Installation](#pre-installation)
+    - [Ollama](#ollama)
+  - [Installation](#installation)
+    - [Clone the repo](#clone-the-repo)
+    - [Install dependencies](#install-dependencies)
+  - [Environment Variables](#environment-variables)
+- [🔥 Running the Application](#-running-the-application)
+  - [Development Mode](#development-mode)
+  - [Production Mode](#production-mode)
+- [🧪 Running Tests](#-running-tests)
+- [📜 API Endpoints](#-api-endpoints)
+  - [User Routes](#user-routes)
+  - [Note Routes](#note-routes)
+  - [LLM Generate Routes](#llm-generate-routes)
+- [📝 License](#-license)
+
+
 ## 📌 Features
 - ✨ **AI Notes Title Suggestions** ✨To enhance the functionality of Note Management APP, we have integrated an AI language model using Ollama to suggest titles for user notes based on the note content.
 
