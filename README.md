@@ -74,7 +74,7 @@ Make sure you have the following installed:
 
 4. Add the envs to the `.env`
 
-    OLLAMA_HOST = 'http://127.0.0.1:11434'\
+    OLLAMA_HOST = 'http://127.0.0.1:11434' \
     LLM_MODEL_NAME = 'smollm2:135m'
 
 
@@ -104,7 +104,7 @@ Create a .env file in the root directory and add the following variables:
 PORT_SERVER=4000 #(Optional)\
 JWT_SECRET=JWT_SECRET_KEY\
 MONGO_URI=mongodb://localhost:27017/note-app\
-OLLAMA_HOST = 'http://127.0.0.1:11434'\
+OLLAMA_HOST = 'http://127.0.0.1:11434' \
 LLM_MODEL_NAME = 'smollm2'
 
 
