@@ -76,8 +76,8 @@ export default class ControllerNote {
     try {
       const { _id } = req.params;
       const body: iNote = req.body;
-      await ServiceNote.updateNote(_id, body);
-      return new ReturnResponse(res, 204, 'Success', undefined);
+      const response = await ServiceNote.updateNote(_id, body);
+      return new ReturnResponse(res, 200, 'Success', response);
     } catch (error: any) {
       return new ReturnError(res, error);
     }

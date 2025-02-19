@@ -72,6 +72,6 @@ export default class ServiceUser {
     }
     delete user.password;
     const token = generateToken(user);
-    return { token };
+    return { token, user };
   }
 }

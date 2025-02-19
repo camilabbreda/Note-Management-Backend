@@ -5,8 +5,8 @@ import ControllerNote from '../domain/controller/controller-note';
 
 const router = Router();
 
-router.get('/user', ControllerUser.getAllUsers);
-router.get('/user/:_id', ControllerUser.getUserById);
+router.get('/user', authMiddleware, ControllerUser.getAllUsers);
+router.get('/user/:_id', authMiddleware, ControllerUser.getUserById);
 router.post('/user/register', ControllerUser.createUser);
 router.post('/user/login', ControllerUser.loginUser);
 router.put('/user/:_id', authMiddleware, ControllerUser.updateUser);
@@ -17,7 +17,7 @@ router.get(
   authMiddleware,
   ControllerNote.getNotesByUserId,
 );
-router.get('/note', ControllerNote.getAllNotes);
+router.get('/note', authMiddleware, ControllerNote.getAllNotes);
 router.get('/note/:_id', authMiddleware, ControllerNote.getNoteById);
 router.post('/note', authMiddleware, ControllerNote.createNote);
 router.put('/note/:_id', authMiddleware, ControllerNote.updateNote);
