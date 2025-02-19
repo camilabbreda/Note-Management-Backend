@@ -7,11 +7,7 @@ import ControllerLLM from '../domain/controller/controller-llm';
 const router = Router();
 
 router.get('/health', (_, res) => {
-  res.status(200).send('I am alive');
-});
-
-router.get('/health', (_, res) => {
-  res.status(200).send('I am alive');
+  res.status(200).send('Alive');
 });
 
 router.get('/user', authMiddleware, ControllerUser.getAllUsers);
@@ -32,7 +28,7 @@ router.post('/note', authMiddleware, ControllerNote.createNote);
 router.put('/note/:_id', authMiddleware, ControllerNote.updateNote);
 router.delete('/note/:_id', authMiddleware, ControllerNote.deleteNote);
 
-router.post('/generate/note-title', ControllerLLM.generatNoteTitle);
+router.post('/generate/note-title', authMiddleware, ControllerLLM.generatNoteTitle);
 
 export default (app: Express): void => {
   app.use(router);
